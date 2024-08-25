@@ -1,6 +1,5 @@
 import requests
 import json
-import string
 import re
 
 
@@ -11,6 +10,7 @@ def get_request():
     url = baseurl + "/api/users"
 
     response = requests.get(url)
+    #Verfiy status code
     assert response.status_code == 200
     json_data = response.json()
     json_body = json.dumps(json_data, indent=4)
@@ -50,9 +50,11 @@ def post_request():
             "avatar": "https://reqres.in/img/faces/100-image.jpg"
         }]}
     response = requests.post(url, json=data)
+    #Verfiy status code
     assert response.status_code == 201
     json_data = response.json()
     key_data = data["data"][0]
+    #verfiy updated data
     assert key_data["first_name"] == "aziz"
     assert key_data["last_name"] == "mohamadsaleh"
     #Verfiy email and avatar
@@ -74,15 +76,17 @@ def put_request():
         "job": "Lawyer"
     }
     response = requests.put(url, json=data)
+    #Verfiy status code
     assert response.status_code == 200
     json_data = response.json()
+    #verfiy updated data
     assert json_data["name"] == "Mohamad"
     assert json_data["job"] == "Lawyer"
 
 def delete_request():
     url = baseurl + "/api/users/2"
-
     response = requests.delete(url)
+    #Verfiy status code
     assert response.status_code == 204
 
 
